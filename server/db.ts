@@ -1,8 +1,24 @@
 import Database from 'better-sqlite3';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
-const dbPath = path.resolve(process.cwd(), 'biblioteca.db');
+function resolveDbPath(): string {
+  if (process.env.DB_PATH) {
+    return process.env.DB_PATH;
+  }
+  const cwdDir = process.cwd();
+  const localPath = path.resolve(cwdDir, 'biblioteca.db');
+  try {
+    fs.accessSync(cwdDir, fs.constants.W_OK);
+    return localPath;
+  } catch {
+    return path.resolve(os.tmpdir(), 'biblioteca.db');
+  }
+}
+
+const dbPath = resolveDbPath();
 const db = new Database(dbPath);
 
 db.pragma('journal_mode = WAL');

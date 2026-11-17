@@ -1,13 +1,13 @@
 import crypto from 'node:crypto';
 import path from 'node:path';
-import express, { NextFunction, Request, Response } from 'express';
-import { createServer as createViteServer } from 'vite';
+import express from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import db, { initializeDatabase, verifyPassword } from './server/db.ts';
 import type { Book, LoanRecord, MostBorrowedBook, UserSummary } from './src/types/library.ts';
 
 initializeDatabase();
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 const TOKEN_SECRET = process.env.SESSION_SECRET || crypto.createHash('sha256').update('acervo-escolar-biblioteca-secret-v1').digest('hex');
 
 interface TokenPayload {
@@ -475,6 +475,7 @@ async function startServer() {
 
   // Mount Vite middleware in dev, or serve built dist in production
   if (process.env.NODE_ENV !== 'production') {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',

@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  RotateCcw,
   X,
 } from 'lucide-react';
 import { BooksView } from './components/BooksView';
@@ -15,10 +16,17 @@ import { DocsView } from './components/DocsView';
 import { LoansView } from './components/LoansView';
 import { LoginView } from './components/LoginView';
 import { ReportsView } from './components/ReportsView';
+import { ReturnsView } from './components/ReturnsView';
 import { api, getStoredToken, setStoredToken } from './lib/api';
 import type { UserSummary } from './types/library';
 
-type ActiveSection = 'dashboard' | 'livros' | 'emprestimos' | 'relatorios' | 'documentacao';
+type ActiveSection =
+  | 'dashboard'
+  | 'livros'
+  | 'emprestimos'
+  | 'devolucoes'
+  | 'relatorios'
+  | 'documentacao';
 
 const SECTION_META: Record<ActiveSection, { title: string; breadcrumb: string }> = {
   dashboard: {
@@ -32,6 +40,10 @@ const SECTION_META: Record<ActiveSection, { title: string; breadcrumb: string }>
   emprestimos: {
     title: 'Gestão de Empréstimos',
     breadcrumb: 'Acervo Escolar / Empréstimos',
+  },
+  devolucoes: {
+    title: 'Registro de Devoluções',
+    breadcrumb: 'Acervo Escolar / Devoluções',
   },
   relatorios: {
     title: 'Relatórios e Livros Mais Emprestados',
@@ -103,6 +115,7 @@ export default function App() {
     { id: 'dashboard', label: 'Visão Geral', icon: LayoutDashboard },
     { id: 'livros', label: 'Livros', icon: BookOpen },
     { id: 'emprestimos', label: 'Empréstimos', icon: ArrowLeftRight },
+    { id: 'devolucoes', label: 'Devoluções', icon: RotateCcw },
     { id: 'relatorios', label: 'Relatórios', icon: BarChart3 },
     { id: 'documentacao', label: 'Documentação', icon: FileText },
   ];
@@ -228,6 +241,9 @@ export default function App() {
           {activeSection === 'dashboard' && <DashboardView onNavigate={navigateTo} />}
           {activeSection === 'livros' && <BooksView />}
           {activeSection === 'emprestimos' && <LoansView />}
+          {activeSection === 'devolucoes' && (
+            <ReturnsView onGoToLoans={() => navigateTo('emprestimos')} />
+          )}
           {activeSection === 'relatorios' && <ReportsView />}
           {activeSection === 'documentacao' && <DocsView />}
         </main>

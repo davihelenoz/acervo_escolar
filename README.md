@@ -2,6 +2,8 @@
 
 Sistema web completo para informatização e gestão de biblioteca escolar, com autenticação de usuários, controle de catálogo de livros, gestão transacional de empréstimos e devoluções, relatórios de circulação (incluindo ranking dos livros mais emprestados) e documentação técnica integrada.
 
+- **Link do Site Publicado:** https://acervoescolar.ai.studio
+
 ---
 
 ## Visão Geral da Aplicação
@@ -114,6 +116,7 @@ erDiagram
 - `src/components/DashboardView.tsx` — Painel principal com indicadores e movimentações recentes
 - `src/components/BooksView.tsx` — Cadastro, alteração, exclusão e pesquisa de livros
 - `src/components/LoansView.tsx` — Interface de gestão de empréstimos, devoluções e histórico
+- `src/components/ReturnsView.tsx` — Página dedicada para controle e registro de devoluções de livros em movimento
 - `src/components/ReportsView.tsx` — Relatórios detalhados (CSV) e ranking de livros mais emprestados
 - `src/components/DocsView.tsx` — Documentação técnica interativa (RF, DER, SQL, Casos de Teste e Infraestrutura)
 - `database/biblioteca_escolar.sql` — Script SQL de criação e população das tabelas `Usuario`, `Livro` e `Emprestimo`

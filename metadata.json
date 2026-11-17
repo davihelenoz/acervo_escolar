@@ -1,0 +1,6 @@
+{
+  "name": "Acervo Escolar — Sistema de Biblioteca",
+  "description": "Sistema completo de gestão de biblioteca escolar com autenticação, catálogo de livros, controle de empréstimos e devoluções, relatórios e documentação técnica.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
